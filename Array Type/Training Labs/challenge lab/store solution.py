@@ -14,7 +14,7 @@ for bundle in bundles:
 
 # Use the enumerate() function to print out the index and the name of each bundle
 for index, bundle in enumerate(bundles):
-    print(f"{index}: {bundle[0]}")
+    print(f"{index+1}: {bundle[0]}")
 
 # Use the range() function to loop through the nested list and print out only the bundles that include a certain product (e.g. only bundles that include jeans)
 product = "jeans"
