@@ -1,0 +1,79 @@
+# Import the library
+from operator import itemgetter
+# Define a list of books 
+books = [
+    {"title": "Book1", "author": "Author1", "ISBN": "111111", "genre": "Fiction"},
+    {"title": "Book2", "author": "Author2", "ISBN": "222222", "genre": "Non-Fiction"},
+    {"title": "Book3", "author": "Author1", "ISBN": "333333", "genre": "Fiction"},
+    {"title": "Book4", "author": "Author3", "ISBN": "444444", "genre": "Non-Fiction"},
+    {"title": "Book5", "author": "Author2", "ISBN": "555555", "genre": "Fiction"}
+]
+# Sort the books by title
+print("Sorting by title:")
+sorted_books = sorted(books, key=lambda x: x["title"])
+for book in sorted_books:
+    print(book)
+    
+# Sort the books by title then by author
+print("\nSorting by title then by author:")
+sorted_books = sorted(books, key=lambda x: (x["title"], x["author"]))
+for book in sorted_books:
+    print(book)
+
+# Sort the books by genre then by author
+print("\nSorting by genre then by author:")
+sorted_books = sorted(books, key=lambda x: (x["genre"], x["author"]))
+for book in sorted_books:
+    print(book)
+# Sort the books in reverse order by ISBN
+print("\nSorting in reverse by ISBN:")
+sorted_books = sorted(books, key=lambda x: x["ISBN"], reverse=True)
+for book in sorted_books:
+    print(book)
+# Sort the books in place by ISBN
+print("\nSorting in place by ISBN:")
+books.sort(key=lambda x: x["ISBN"])
+for book in books:
+    print(book)
+
+Sorting /Training Labs/Challenge Lab/ Mulit-Product Company
+# Define a list of products
+products = [
+    {"name": "Product1", "price": 10.99, "category": "Electronics", "brand": "Brand1"},
+    {"name": "Product2", "price": 5.99, "category": "Home", "brand": "Brand2"},
+    {"name": "Product3", "price": 15.99, "category": "Electronics", "brand": "Brand1"},
+    {"name": "Product4", "price": 12.99, "category": "Home", "brand": "Brand3"},
+    {"name": "Product5", "price": 9.99, "category": "Electronics", "brand": "Brand2"}
+]
+ 
+# Sort the products by price
+print("Sorting by price:")
+sorted_products = sorted(products, key=lambda x: x["price"])
+for product in sorted_products:
+	print(product)
+	
+# Sort the products by price then by category
+print("\nSorting by price then by category:")
+sorted_products = sorted(products, key=lambda x: (x["price"], x["category"]))
+for product in sorted_products:
+	print(product)
+ 
+# Sort the products by category then by brand
+print("\nSorting by category then by brand:")
+sorted_products = sorted(products, key=lambda x: (x["category"], x["brand"]))
+for product in sorted_products:
+	print(product)
+ 
+# Sort the products in reverse order by price
+print("\nSorting in reverse by price:")
+sorted_products = sorted(products, key=lambda x: x["price"], reverse=True)
+for product in sorted_products:
+	print(product)
+ 
+# Sort the products in place by price
+print("\nSorting in place by price:")
+products.sort(key=lambda x: x["price"])
+for product in products:
+	print(product)
+
+
