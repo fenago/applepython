@@ -1,0 +1,49 @@
+class Animal:
+    def __init__(self, name, age, weight, diet, habitat):
+        self.name = name
+        self.age = age
+        self.weight = weight
+        self.diet = diet
+        self.habitat = habitat
+
+    def food_consumption(self):
+        if self.diet == "herbivore":
+            return self.weight * 0.05
+        elif self.diet == "carnivore":
+            return self.weight * 0.1
+        else:
+            return self.weight * 0.07
+
+def main():
+    animal_list = []
+    while True:
+        print("1. Add Animal")
+        print("2. View Animal Information")
+        print("3. Exit")
+        choice = int(input("Enter your choice: "))
+
+        if choice == 1:
+            name = input("Enter name: ")
+            age = int(input("Enter age: "))
+            weight = float(input("Enter weight: "))
+            diet = input("Enter diet (herbivore/carnivore/omnivore): ")
+            habitat = input("Enter habitat: ")
+            animal = Animal(name, age, weight, diet, habitat)
+            animal_list.append(animal)
+            print("Animal added successfully")
+        elif choice == 2:
+            for animal in animal_list:
+                print("Name:", animal.name)
+                print("Age:", animal.age)
+                print("Weight:", animal.weight)
+                print("Diet:", animal.diet)
+                print("Habitat:", animal.habitat)
+                print("Food Consumption:", animal.food_consumption(), "kg")
+                print("----------------------")
+        elif choice == 3:
+            break
+        else:
+            print("Invalid choice. Try again.")
+
+if __name__ == '__main__':
+    main()
