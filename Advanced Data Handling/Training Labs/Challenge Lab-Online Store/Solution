@@ -1,0 +1,68 @@
+from collections import defaultdict, Counter
+from copy import deepcopy
+from shutil import make_archive
+from tarfile import TarFile
+from typing import NamedTuple
+from zipfile import ZipFile
+from pprint import pprint
+# Define named tuple to store sales data
+class SaleData(NamedTuple):
+    date: str
+    product: str
+    price: float
+# Extract data from zipped and tar archives
+def extract_data(filename):
+    data = []
+    if filename.endswith(".zip"):
+        with ZipFile(filename, 'r') as archive:
+            for name in archive.namelist():
+                with archive.open(name) as file:
+                    for line in file:
+                        # Process data and store it as named tuple
+                        date, product, price = line.strip().split(',')
+                        data.append(SaleData(date, product, float(price)))
+    elif filename.endswith(".tar"):
+        with TarFile.open(filename, 'r') as archive:
+            for name in archive.getnames():
+                with archive.extractfile(name) as file:
+                    for line in file:
+                        # Process data and store it as named tuple
+                        date, product, price = line.strip().split(',')
+                        data.append(SaleData(date, product, float(price)))
+    return data
+   
+# Create a deep copy of a list of sales data
+def copy_data(data):
+    return deepcopy(data)
+
+# Use defaultdict to add new data to the dictionary
+def add_data_to_dict(data, d):
+    for sale in data:
+        d[sale.product].append(sale.price)
+    return d
+
+# Use Counter to count occurrences of each item
+def count_items(data):
+    return Counter(sale.product for sale in data)
+
+# Create a new archive of extracted data
+def create_archive(data, archive_name):
+    make_archive(archive_name, 'gztar', data)
+ 
+if __name__ == '__main__':
+    archive_name = "sales_data.tar.gz"
+    data = extract_data(archive_name)
+
+    # Create deep copy of the data
+    copied_data = copy_data(data)
+
+    # Use defaultdict to add new data
+    sales_dict = defaultdict(list)
+    sales_dict = add_data_to_dict(data, sales_dict)
+
+    # Use Counter to count items
+    item_counts = count_items(data)
+
+    # Print extracted and processed data
+    pprint(sales_dict)
+    pprint(item_counts)
