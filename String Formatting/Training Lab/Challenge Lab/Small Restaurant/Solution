@@ -1,0 +1,24 @@
+from datetime import datetime
+
+def generate_bill(ordered_items):
+    bill = ""
+    total = 0
+    bill += f"{'Item':<20} {'Price':<10} {'Quantity':<10} {'Cost':<10}\n"
+    bill += "=" * 50 + "\n"
+    for item in ordered_items:
+        name, price, quantity = item["name"], item["price"], item["quantity"]
+        cost = price * quantity
+        total += cost
+        bill += f"{name:<20} ${price:<9.2f} {quantity:<10} ${cost:<9.2f}\n"
+    bill += "=" * 50 + "\n"
+    bill += f"{'Total':<20} ${total:<19.2f}\n\n"
+    bill += f"Date: {datetime.now().strftime('%m/%d/%Y %I:%M %p')}"
+    return bill
+
+# Example usage
+ordered_items = [
+    {"name": "Burger", "price": 5.0, "quantity": 2},
+    {"name": "Fries", "price": 2.5, "quantity": 3},
+    {"name": "Soft drink", "price": 1.5, "quantity": 1},
+]
+print(generate_bill(ordered_items))
