@@ -1,0 +1,43 @@
+# Import the Zen of Python to guide your coding practices
+import this
+
+# Create a list of animals
+animals = [
+    {'name': 'Lion', 'species': 'Panthera leo', 'diet': 'carnivore', 'enclosure_number': 2},
+    {'name': 'Tiger', 'species': 'Panthera tigris', 'diet': 'carnivore', 'enclosure_number': 1},
+    {'name': 'Bear', 'species': 'Ursus arctos', 'diet': 'omnivore', 'enclosure_number': 3},
+    {'name': 'Monkey', 'species': 'Macaca mulatta', 'diet': 'omnivore', 'enclosure_number': 4},
+    {'name': 'Parrot', 'species': 'Melopsittacus undulatus', 'diet': 'herbivore', 'enclosure_number': 5}
+]
+
+# Sort the animals by their enclosure number
+# Use a lambda function as a key for the sorted() function
+# to sort the animals by the enclosure_number key
+sorted_animals = sorted(animals, key=lambda animal: animal['enclosure_number'])
+
+# Use a list comprehension to create a list of all the animals in the zoo
+all_animals = [animal['name'] for animal in sorted_animals]
+
+# Use a dictionary comprehension to create a dictionary of animals grouped by their species
+species_dict = {animal['species']: animal['name'] for animal in sorted_animals}
+
+# Use a set comprehension to create a set of all the unique species in the zoo
+unique_species = {animal['species'] for animal in sorted_animals}
+
+# Use an iterable to iterate over the list of animals
+# and display the information in the following format:
+# Name: Lion, Species: Panthera leo, Diet: Carnivore, Enclosure Number: 2
+for animal in sorted_animals:
+    print(f"Name: {animal['name']}, Species: {animal['species']}, Diet: {animal['diet']}, Enclosure Number: {animal['enclosure_number']}")
+
+# Use a generator expression to create a generator that yields the animal's name and species
+name_species_gen = (f"{animal['name']} ({animal['species']})" for animal in sorted_animals)
+
+# Use a generator function to create a generator that yields the animal's diet
+def diet_gen(animals):
+    for animal in animals:
+        yield animal['diet']
+
+# Use the generator functions
+print(next(name_species_gen)) # Prints 'Lion (Panthera leo)'
+print(next(diet_gen(sorted_animals))) # Prints 'carnivore'
