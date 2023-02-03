@@ -1,0 +1,43 @@
+# calculate_total.py
+
+def calculate_total(cart):
+    """
+    This function calculates the total cost of items in a shopping cart.
+    :param cart: List of items in the cart
+    :return: Total cost of items in the cart
+    """
+    total_cost = 0
+    for item in cart:
+        total_cost += item["price"] * item["quantity"]
+    return total_cost
+
+
+# shopping_cart.py
+
+from calculate_total import calculate_total
+
+def generate_receipt(cart, discounts=[]):
+    """
+    This function generates a receipt for items in a shopping cart, including applied discounts.
+    :param cart: List of items in the cart
+    :param discounts: List of applied discounts (default: [])
+    :return: None
+    """
+    total_cost = calculate_total(cart)
+    for discount in discounts:
+        total_cost -= discount["amount"]
+    receipt = "Total cost: $" + str(total_cost)
+    print(receipt)
+
+
+# discount.py
+
+def add_discount(discounts, discount_name, amount):
+    """
+    This function adds a discount to the list of discounts.
+    :param discounts: List of applied discounts
+    :param discount_name: Name of the discount
+    :param amount: Amount of the discount
+    :return: None
+    """
+    discounts.append({"name": discount_name, "amount": amount})
