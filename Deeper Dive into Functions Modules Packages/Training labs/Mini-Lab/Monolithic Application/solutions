@@ -1,0 +1,74 @@
+# Define classes for Product and Inventory
+class Product:
+    def __init__(self, name, price, quantity):
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+
+class Inventory:
+    def __init__(self):
+        self.products = []
+
+    def add_product(self, product):
+        self.products.append(product)
+
+    def remove_product(self, product_name):
+        for i, product in enumerate(self.products):
+            if product.name == product_name:
+                del self.products[i]
+                return
+
+    def update_product_quantity(self, product_name, new_quantity):
+        for product in self.products:
+            if product.name == product_name:
+                product.quantity = new_quantity
+                return
+
+# Move the inventory management functions to a separate module
+def add_product(inventory, name, price, quantity):
+    product = Product(name, price, quantity)
+    inventory.add_product(product)
+
+def remove_product(inventory, name):
+    inventory.remove_product(name)
+
+def update_product_quantity(inventory, name, quantity):
+    inventory.update_product_quantity(name, quantity)
+
+# Move the class definitions to a separate package
+# For example, the package name could be "inventory_management"
+# and the module name could be "classes"
+class User:
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+class Product:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+class Order:
+    def __init__(self, user, product, quantity):
+        self.user = user
+        self.product = product
+        self.quantity = quantity
+
+    def total_cost(self):
+        return self.product.price * self.quantity
+
+# Create a user
+user = User("John Doe", "johndoe@example.com")
+
+# Create a product
+product = Product("Apple", 0.5)
+
+# Create an order
+order = Order(user, product, 10)
+
+# Calculate the total cost of the order
+total_cost = order.total_cost()
+
+print(f"User: {user.name} Email: {user.email}")
+print(f"Product: {product.name} Price: {product.price}")
+print(f"Order Quantity: {order.quantity} Total Cost: {total_cost}")
