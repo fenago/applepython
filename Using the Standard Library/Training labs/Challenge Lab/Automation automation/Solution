@@ -1,0 +1,65 @@
+# Import the necessary modules
+import zipfile
+import math
+import csv
+import smtplib
+import random
+from email.mime.base import MIMEBase
+from email import encoders
+
+# Get the directory path where the zipped archive files are located and the directory where the processed data and report will be saved
+arc_dir = input("Enter the directory where the zipped archive files are located: ")
+out_dir = input("Enter the directory where the processed data and report will be saved: ")
+arc_path = os.path.join(arc_dir, "sales_data.zip")
+out_path = os.path.join(out_dir, "sales_report.csv")
+
+# Extract the data from the archive files
+with zipfile.ZipFile(arc_path, "r") as archive:
+    archive.extractall(out_dir)
+    archive.close()
+
+# Process the data
+with open(out_path, "r") as file:
+    data = csv.reader(file)
+    #skip header
+    next(data)
+    sales = [float(row[3]) for row in data]
+    total_sales = math.fsum(sales)
+    avg_sales = total_sales / len(sales)
+    max_sales = max(sales)
+    min_sales = min(sales)
+    
+# Generate the report
+with open(out_path, "w") as file:
+    report = csv.writer(file)
+    report.writerow(["Total Sales:", total_sales])
+    report.writerow(["Average Sales per Day:", avg_sales])
+    report.writerow(["Day with Highest Sales:", max_sales])
+    report.writerow(["Day with Lowest Sales:", min_sales])
+    
+# Send the report via email
+sender_email = "sender@example.com"
+receiver_email = "receiver@example.com"
+password = "your_password"
+
+message = f"Subject: Sales Report\n\nAttached is the sales report for the month."
+
+with open(out_path, "rb") as attachment:
+    part = MIMEBase("application", "octet-stream")
+    part.set_payload((attachment).read())
+    encoders.encode_base64(part)
+    part.add_header("Content-Disposition", "attachment", filename="sales_report.csv")
+    msg.attach(part)
+
+server = smtplib.SMTP("smtp.example.com", 587)
+server.starttls()
+server.login(sender_email, password)
+server.sendmail(sender_email, receiver_email, message)
+server.quit()
+
+# Test the script using random values
+test_data = [random.randint(0,1000) for i in range(30)]
+print(test_data)
+#run the program with the test_data
+#verify that the report is generated correctly
+
