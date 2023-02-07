@@ -1,0 +1,18 @@
+import csv
+
+# Sample product data
+products = [
+    {"product_code": "p1", "name": "Product 1", "price": 10, "category": "Electronics"},
+    {"product_code": "p2", "name": "Product 2", "price": 20, "category": "Clothing"},
+    {"product_code": "p3", "name": "Product 3", "price": 30, "category": "Electronics"},
+    {"product_code": "p4", "name": "Product 4", "price": 40, "category": "Clothing"},
+    {"product_code": "p5", "name": "Product 5", "price": 50, "category": "Food"}
+]
+
+# Write the product data to the CSV file
+with open("inventory.csv", "w", newline="") as csvfile:
+    fieldnames = ["product_code", "name", "price", "category"]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writeheader()
+    for product in products:
+        writer.writerow(product)
