@@ -1,0 +1,84 @@
+import csv
+
+def read_books_from_csv(file_path):
+    books = []
+    with open(file_path, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            book = {
+                'title': row['title'],
+                'author': row['author'],
+                'ISBN': row['ISBN'],
+                'genre': row['genre']
+            }
+            books.append(book)
+    return books
+def create_book_dict(books):
+    book_dict = {}
+    for book in books:
+        ISBN = book['ISBN']
+        book_dict[ISBN] = book
+    return book_dict
+def get_book_by_ISBN(ISBN, book_dict):
+    return book_dict.get(ISBN, None)
+def get_books_by_genre(genre, book_dict):
+    books_by_genre = set()
+    for ISBN, book in book_dict.items():
+        if book['genre'] == genre:
+            books_by_genre.add(book)
+    return books_by_genre
+def get_books_by_author(author, book_dict):
+    books_by_author = {}
+    for ISBN, book in book_dict.items():
+        if book['author'] == author:
+            books_by_author[book['title']] = ISBN
+    return books_by_author
+def count_genre_appearance(book_dict):
+    genre_count = {}
+    for ISBN, book in book_dict.items():
+        genre = book['genre']
+        if genre not in genre_count:
+            genre_count[genre] = 1
+        else:
+            genre_count[genre] += 1
+    return genre_count
+def get_all_authors(book_dict):
+    all_authors = set()
+    for ISBN, book in book_dict.items():
+        all_authors.add(book['author'])
+    return all_authors
+
+def get_all_genres(book_dict):
+    all_genres = set()
+    for ISBN, book in book_dict.items():
+        all_genres.add(book['genre'])
+    return all_genres
+def main():
+    file_path = "book.csv"
+    books = read_books_from_csv(file_path)
+    book_dict = create_book_dict(books)
+
+    ISBN = '123456789'
+    book = get_book_by_ISBN(ISBN, book_dict)
+    print(f"Book with ISBN {ISBN}: {book}")
+
+    genre = 'Fiction'
+    books_by_genre = get_books_by_genre(genre, book_dict)
+    print(f"Books in {genre} genre: {books_by_genre}")
+
+    author = 'Jane Doe'
+    books_by_author = get_books_by_author(author, book_dict)
+    print(f"Books by {author}: {books_by_author}")
+
+    genre_count = count_genre_appearance(book_dict)
+    print(f"Genre count: {genre_count}")
+
+    all_authors = get_all_authors(book_dict)
+    print(f"All authors: {all_authors}")
+
+    all_genres = get_all_genres(book_dict)
+    print(f"All genres: {all_genres}")
+
+if __name__ == '__main__':
+    main()
+
