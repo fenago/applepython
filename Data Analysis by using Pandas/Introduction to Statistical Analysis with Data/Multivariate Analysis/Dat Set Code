@@ -1,0 +1,20 @@
+import pandas as pd
+import numpy as np
+
+# Define the size of the dataset
+n_rows = 1000
+
+# Create random data for the bank customers dataset
+age = np.random.randint(18, 65, size=n_rows)
+gender = np.random.choice(['Male', 'Female'], size=n_rows)
+education = np.random.choice(['High School', 'College', 'Graduate School'], size=n_rows)
+income = np.round(np.random.normal(loc=50000, scale=20000, size=n_rows), 2)
+credit_score = np.round(np.random.normal(loc=700, scale=100, size=n_rows), 2)
+credit_status = np.random.choice(['Good', 'Bad'], size=n_rows)
+
+# Combine the data into a pandas DataFrame
+df = pd.DataFrame({'Age': age, 'Gender': gender, 'Education': education, 'Income': income,
+                   'Credit_Score': credit_score, 'Credit_Status': credit_status})
+
+# Save the DataFrame to a CSV file
+df.to_csv('bank_customers.csv', index=False)
